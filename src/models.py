@@ -13,6 +13,7 @@ class user(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     user = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
     user = relationship( "user", back_populates="favorites")
 
     
@@ -26,6 +27,7 @@ class Planets(Base):
     orbital_period = Column(String(250), nullable=False)
     diameter = Column(String(250))
     climate = Column(String(250))
+    Planets_id = Column(Integer, ForeignKey('user.id'))
     favorites = relationship ("Favorites", back_populates =  "planets")
 
 class Characters(Base):
@@ -38,7 +40,7 @@ class Characters(Base):
     hair_color = Column(String(250))
     homeworld = Column(String(250))
     birth_year = Column(String(250), nullable=False)
-    characters_id = Column(Integer, ForeignKey('address.id'))
+    characters_id = Column(Integer, ForeignKey('user.id'))
     favorites = relationship ("Favorites", back_populates =  "characters")
 
 class Favorites(Base):
@@ -50,8 +52,8 @@ class Favorites(Base):
     Characters = relationship( "Characters", back_populates="favorites")
     Planets_id = Column(ForeignKey("planets.id"))
     Planets = relationship( "Planets", back_populates="favorites")
-    user_id = Column(ForeignKey("user.id"))
-    user = relationship( "user", back_populates="favorites")
+    Favorites_id = Column(ForeignKey("user.id"))
+    Favorites = relationship( "user", back_populates="favorites")
     
 
 
