@@ -12,10 +12,25 @@ class user(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user = Column(String(250), nullable=False)
+    Name = Column(String(250), nullable=False)
+    Last_name = Column(String(250), nullable=False)
+    User = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
+    password = Column(String(250), nullable=False)
+    Suscription_date = Column(String(250), nullable=False)
     user = relationship( "user", back_populates="favorites")
 
+class Favorites(Base):
+    __tablename__ = 'favorites'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    Characters_id = Column(ForeignKey("characters.id"))
+    Characters = relationship( "Characters", back_populates="favorites")
+    Planets_id = Column(ForeignKey("planets.id"))
+    Planets = relationship( "Planets", back_populates="favorites")
+    Favorites_id = Column(ForeignKey("user.id"))
+    Favorites = relationship( "user", back_populates="favorites")
     
 class Planets(Base):
     __tablename__ = 'planets'
@@ -43,17 +58,6 @@ class Characters(Base):
     characters_id = Column(Integer, ForeignKey('user.id'))
     favorites = relationship ("Favorites", back_populates =  "characters")
 
-class Favorites(Base):
-    __tablename__ = 'favorites'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    Characters_id = Column(ForeignKey("characters.id"))
-    Characters = relationship( "Characters", back_populates="favorites")
-    Planets_id = Column(ForeignKey("planets.id"))
-    Planets = relationship( "Planets", back_populates="favorites")
-    Favorites_id = Column(ForeignKey("user.id"))
-    Favorites = relationship( "user", back_populates="favorites")
     
 
 
