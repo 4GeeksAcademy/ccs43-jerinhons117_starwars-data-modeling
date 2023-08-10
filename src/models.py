@@ -18,7 +18,7 @@ class user(Base):
     email = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
     Suscription_date = Column(String(250), nullable=False)
-    user = relationship( "user", back_populates="favorites")
+    user = relationship("favorites")
 
 class Favorites(Base):
     __tablename__ = 'favorites'
@@ -42,7 +42,7 @@ class Planets(Base):
     orbital_period = Column(String(250), nullable=False)
     diameter = Column(String(250))
     climate = Column(String(250))
-    Planets_id = Column(Integer, ForeignKey('user.id'))
+    Planets_id = Column(Integer, ForeignKey('favorites'))
     favorites = relationship ("Favorites", back_populates =  "planets")
 
 class Characters(Base):
@@ -55,7 +55,7 @@ class Characters(Base):
     hair_color = Column(String(250))
     homeworld = Column(String(250))
     birth_year = Column(String(250), nullable=False)
-    characters_id = Column(Integer, ForeignKey('user.id'))
+    characters_id = Column(Integer, ForeignKey('favorites'))
     favorites = relationship ("Favorites", back_populates =  "characters")
 
     
